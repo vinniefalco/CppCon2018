@@ -63,7 +63,7 @@ add_executable(websocket-chat-server ${APP_FILES} ${BEAST_FILES})
 
 if(NOT WIN32)
   find_package(Threads)
-  target_link_libraries(websocket-chat-server PRIVATE Threads::Threads Boost::system)
+  target_link_libraries(websocket-chat-server PRIVATE Threads::Threads ${Boost_SYSTEM_LIBRARY})
 endif()
 
 set_target_properties(websocket-chat-server PROPERTIES
