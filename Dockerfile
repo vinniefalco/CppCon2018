@@ -1,34 +1,32 @@
-FROM ubuntu:bionic
+FROM ubuntu:bionic AS build
 
-RUN mkdir -p /home/cppcon/public_html
-
+# Install tools required for the project
 RUN apt-get update \
     && apt-get install gcc -y \
     && apt-get install g++ -y \
     && apt-get install cmake -y \
-    && apt-get install wget -y
+    && apt-get install wget -y 
 
-
+# Install Boost
 RUN cd /home \
     && wget http://downloads.sourceforge.net/project/boost/boost/1.68.0/boost_1_68_0.tar.gz \
     && tar xfz boost_1_68_0.tar.gz \
     && rm boost_1_68_0.tar.gz \
     && cd boost_1_68_0 \
     && ./bootstrap.sh --with-libraries=system \
-    && ./b2 install \
-    && cd /home \
-    && rm -rf boost_1_68_0
+    && ./b2 install
 
-RUN apt-get install -y wget zsh git
-RUN wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O - | zsh || true
+# Copy the entire project and build it
+COPY . /cpp/src/project/ 
+WORKDIR /cpp/src/project/
 
-COPY .docker/console/.zshrc /root/.zshrc
-COPY .docker/console/robbyrussell.zsh-theme /root/.oh-my-zsh/themes/robbyrussell.zsh-theme
+RUN cmake -Bbuild -H. && cmake --build bin
 
+FROM ubuntu:bionic 
+COPY --from=build /cpp/src/project/bin/websocket-chat-server /app/
+COPY --from=build /cpp/src/project/chat_client.html /app/wwwroot/index.html
 
-COPY . /home/cppcon/public_html
-WORKDIR /home/cppcon/public_html
+ENTRYPOINT ["/app/websocket-chat-server", "0.0.0.0", "8080", "/app/wwwroot"]
 
-
-
+EXPOSE 8080
 
