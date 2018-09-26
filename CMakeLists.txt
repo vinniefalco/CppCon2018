@@ -14,10 +14,9 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-
+set(Boost_USE_STATIC_LIBS ON)
 
 if(MSVC)
-  set (Boost_USE_STATIC_LIBS ON)
   set (Boost_USE_STATIC_RUNTIME ON)
   add_definitions(-D_WIN32_WINNT=0x0601)
   add_definitions(-D_SCL_SECURE_NO_WARNINGS=1)
@@ -54,7 +53,7 @@ file(GLOB APP_FILES
   shared_state.hpp
   websocket_session.cpp
   websocket_session.hpp
-  html/chat_client.html
+  index.html
   README.md)
 
 source_group("" FILES ${APP_FILES})
