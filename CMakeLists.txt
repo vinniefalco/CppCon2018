@@ -7,12 +7,14 @@
 # Official repository: https://github.com/boostorg/beast
 #
 
-cmake_minimum_required(VERSION 3.11.0 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
 project(CppCon2018 VERSION 0.1.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
+
+
 
 if(MSVC)
   set (Boost_USE_STATIC_LIBS ON)
@@ -52,7 +54,7 @@ file(GLOB APP_FILES
   shared_state.hpp
   websocket_session.cpp
   websocket_session.hpp
-  chat_client.html
+  html/chat_client.html
   README.md)
 
 source_group("" FILES ${APP_FILES})
