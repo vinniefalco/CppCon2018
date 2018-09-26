@@ -251,11 +251,13 @@ on_read(error_code ec, std::size_t)
             // for the duration of the async operation so
             // we use a shared_ptr to manage it.
             using response_type = typename std::decay<decltype(response)>::type;
-            auto sp = std::make_shared<response_type>(std::move(response));
+            auto sp = std::make_shared<response_type>(std::forward<decltype(response)>(response));
 
             // Write the response
+            auto self = shared_from_this();
+
             http::async_write(this->socket_, *sp,
-				[self = shared_from_this(), sp](
+				[self,sp](
 					error_code ec, std::size_t bytes)
 				{
 					self->on_write(ec, bytes, sp->need_eof()); 
