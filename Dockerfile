@@ -20,7 +20,7 @@ RUN cd /home \
 COPY . /cpp/src/project/ 
 WORKDIR /cpp/src/project/
 
-RUN cmake -Bbuild -H. && cmake --build bin
+RUN cmake -Bbin -H. && cmake --build bin
 
 FROM ubuntu:bionic 
 COPY --from=build /cpp/src/project/bin/websocket-chat-server /app/
