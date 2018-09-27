@@ -21,3 +21,11 @@ We will build from scratch a multi-user chat server in C++11 using
 Beast, and the corresponding browser-based chat client in HTML and
 JavaScript. No prior knowledge or understanding of Beast or Asio is
 required, the talk is suited for everyone.
+
+## Docker Container
+To run this example in a Docker container, simply enter the following commands:
+```
+sudo docker build -t cppcon2018-example .
+sudo docker run -d -p 8080:8080 cppcon2018-example
+```
+After that, you may observe the example at `localhost:8080`.
