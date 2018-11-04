@@ -64,7 +64,7 @@ on_read(error_code ec, std::size_t)
 {
     // Handle the error, if any
     if(ec)
-        fail(ec, "read");
+        return fail(ec, "read");
 
     // Send to all connections
     state_->send(beast::buffers_to_string(buffer_.data()));
