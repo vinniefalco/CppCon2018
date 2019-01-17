@@ -87,7 +87,7 @@ websocket_session::
 send(std::shared_ptr<std::string const> const& ss)
 {
     // Always add to queue
-    queue_.push_back(ss);
+    queue_.push(ss);
 
     // Are we already writing?
     if(queue_.size() > 1)
@@ -112,7 +112,7 @@ on_write(error_code ec, std::size_t)
         return fail(ec, "write");
 
     // Remove the string from the queue
-    queue_.erase(queue_.begin());
+    queue_.pop();
 
     // Send the next message if any
     if(! queue_.empty())

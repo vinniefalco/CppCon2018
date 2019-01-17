@@ -17,7 +17,7 @@
 #include <cstdlib>
 #include <memory>
 #include <string>
-#include <vector>
+#include <queue>
 
 // Forward declaration
 class shared_state;
@@ -29,7 +29,7 @@ class websocket_session : public std::enable_shared_from_this<websocket_session>
     beast::flat_buffer buffer_;
     websocket::stream<tcp::socket> ws_;
     std::shared_ptr<shared_state> state_;
-    std::vector<std::shared_ptr<std::string const>> queue_;
+    std::queue<std::shared_ptr<std::string const>> queue_;
 
     void fail(error_code ec, char const* what);
     void on_accept(error_code ec);
