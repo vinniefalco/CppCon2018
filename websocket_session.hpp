@@ -14,6 +14,7 @@
 #include "beast.hpp"
 #include "shared_state.hpp"
 
+#include <iostream>
 #include <cstdlib>
 #include <memory>
 #include <string>
