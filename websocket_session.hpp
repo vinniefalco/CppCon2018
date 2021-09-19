@@ -18,7 +18,7 @@
 #include <memory>
 #include <string>
 #include <vector>
-
+#include <iostream>
 // Forward declaration
 class shared_state;
 
